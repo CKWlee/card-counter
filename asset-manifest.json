@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/card-counter/static/css/main.fa809df3.css",
+    "main.js": "/card-counter/static/js/main.1e6f1589.js",
+    "static/js/453.0b30fef7.chunk.js": "/card-counter/static/js/453.0b30fef7.chunk.js",
+    "index.html": "/card-counter/index.html",
+    "main.fa809df3.css.map": "/card-counter/static/css/main.fa809df3.css.map",
+    "main.1e6f1589.js.map": "/card-counter/static/js/main.1e6f1589.js.map",
+    "453.0b30fef7.chunk.js.map": "/card-counter/static/js/453.0b30fef7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fa809df3.css",
+    "static/js/main.1e6f1589.js"
+  ]
+}
