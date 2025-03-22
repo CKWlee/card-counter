@@ -1,38 +1,302 @@
+/* Global Reset & Base Styles */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  background: #fff;
+  color: #000;
+  height: 100%;
+}
+
+/* App Container covers the whole screen */
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  width: 100%;
   min-height: 100vh;
+  box-sizing: border-box;
+  transition: background 0.3s ease, color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Centralized Content Wrapper */
+.content-wrapper {
+  flex: 1;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Theme Styles */
+
+/* Default Theme */
+.App.default {
+  background: #fff;
+  color: #000;
+}
+
+/* Neumorphic Theme */
+.App.neumorphic {
+  background: #e0e5ec;
+  color: #333;
+}
+
+/* Dark Mode Theme */
+.App.dark-mode {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+/* Translucent Theme */
+.App.translucent {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  color: #000;
+}
+
+/* Dark Mode Overrides for Better Readability */
+.App.dark-mode .card {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.App.dark-mode .action-log {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+/* Header Section */
+.header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.count-display {
+  font-size: 1.2rem;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  filter: blur(4px);
+}
+.count-display.revealed {
+  filter: none;
+  background-color: #f8f8f8;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.help-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.help-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background: #007aff;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.help-buttons button:hover {
+  background: #005bb5;
+}
+
+.scoreboard {
+  text-align: center;
+}
+
+.scoreboard p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Theme Selector */
+.theme-selector {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.theme-selector select {
+  padding: 5px 10px;
+  border: 1px solid #007aff;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* Main Game Board */
+.game-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.hands {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.card {
+  width: 50px;
+  height: 70px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Game Buttons */
+.game-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.game-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #007aff;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.game-buttons button:hover {
+  background: #005bb5;
+}
+
+/* Action Log Styling */
+.action-log {
+  background: #f8f8f8;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* Deck Selection Styling */
+.deck-selection {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.deck-selection button {
+  padding: 8px 16px;
+  border: 1px solid #007aff;
+  background: #fff;
+  color: #007aff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.deck-selection button.selected {
+  background: #007aff;
+  color: #fff;
+}
+
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #007aff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+.modal-button:hover {
+  background: #005bb5;
+}
+
+/* Round Result Modal Buttons */
+.round-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .header, .hands, .action-log {
+    flex-direction: column;
+    align-items: center;
   }
-  to {
-    transform: rotate(360deg);
+  .hands {
+    gap: 15px;
   }
 }
