@@ -108,19 +108,6 @@ html, body, #root {
   gap: 10px;
 }
 
-.help-buttons button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  background: #007aff;
-  color: #fff;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-.help-buttons button:hover {
-  background: #005bb5;
-}
-
 .scoreboard {
   text-align: center;
 }
@@ -195,7 +182,12 @@ html, body, #root {
   margin-top: 10px;
 }
 
-.game-buttons button {
+/* Reusable Button Class */
+.game-buttons button,
+.help-buttons button,
+.modal-button,
+.deck-selection button,
+.round-buttons button {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -205,9 +197,19 @@ html, body, #root {
   cursor: pointer;
   transition: background 0.3s ease;
 }
-.game-buttons button:hover {
+
+.game-buttons button:hover,
+.help-buttons button:hover,
+.modal-button:hover,
+.deck-selection button:hover,
+.round-buttons button:hover {
   background: #005bb5;
 }
+
+.help-buttons button {
+  padding: 8px 16px;
+}
+
 
 /* Action Log Styling */
 .action-log {
@@ -229,13 +231,9 @@ html, body, #root {
 }
 
 .deck-selection button {
-  padding: 8px 16px;
   border: 1px solid #007aff;
   background: #fff;
   color: #007aff;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .deck-selection button.selected {
@@ -267,19 +265,9 @@ html, body, #root {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.modal-button {
+.modal-button,
+.round-buttons button {
   margin-top: 20px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background: #007aff;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s ease;
-}
-.modal-button:hover {
-  background: #005bb5;
 }
 
 /* Round Result Modal Buttons */
@@ -300,3 +288,4 @@ html, body, #root {
     gap: 15px;
   }
 }
+
