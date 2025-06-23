@@ -20,7 +20,7 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
-  },
+  },"build": "vite build --base=/card-counter/",
   "eslintConfig": {
     "extends": [
       "react-app",
