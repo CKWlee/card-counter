@@ -6,6 +6,6 @@ export default defineConfig({
   base: '/card-counter/',
   plugins: [react()],
   build: {
-    outDir: 'docs'
+    outDir: 'root'
   }
 })
