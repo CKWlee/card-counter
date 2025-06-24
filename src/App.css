@@ -8,7 +8,7 @@ html, body, #root {
   height: 100%;
 }
 
-/* App Container covers the whole screen */
+/* App Container */
 .App {
   width: 100%;
   min-height: 100vh;
@@ -30,48 +30,21 @@ html, body, #root {
   gap: 20px;
 }
 
-/* Theme Styles */
+/* --- Theme Styles --- */
+.App.default { background: #fff; color: #000; }
+.App.neumorphic { background: #e0e5ec; color: #333; }
+.App.dark-mode { background: #121212; color: #e0e0e0; }
+.App.translucent { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); color: #000; }
 
-/* Default Theme */
-.App.default {
-  background: #fff;
-  color: #000;
-}
-
-/* Neumorphic Theme */
-.App.neumorphic {
-  background: #e0e5ec;
-  color: #333;
-}
-
-/* Dark Mode Theme */
-.App.dark-mode {
-  background: #121212;
-  color: #e0e0e0;
-}
-
-/* Translucent Theme */
-.App.translucent {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
-  color: #000;
-}
-
-/* Dark Mode Overrides for Better Readability */
-.App.dark-mode .card {
-  background: #333;
-  color: #fff;
-  border: 1px solid #555;
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
-}
-
+.App.dark-mode .card,
 .App.dark-mode .action-log {
   background: #333;
   color: #fff;
   border: 1px solid #555;
 }
+.App.dark-mode .card { box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); }
 
-/* Header Section */
+/* --- Header Section --- */
 .header {
   display: flex;
   flex-direction: column;
@@ -80,7 +53,6 @@ html, body, #root {
   border-bottom: 1px solid #ddd;
   padding-bottom: 15px;
 }
-
 .top-row {
   display: flex;
   align-items: center;
@@ -88,7 +60,6 @@ html, body, #root {
   flex-wrap: wrap;
   justify-content: center;
 }
-
 .count-display {
   font-size: 1.2rem;
   padding: 10px 15px;
@@ -102,66 +73,40 @@ html, body, #root {
   filter: none;
   background-color: #f8f8f8;
 }
+.help-buttons { display: flex; gap: 10px; }
+.scoreboard { text-align: center; }
+.scoreboard p { margin: 0; font-size: 1rem; }
+.theme-selector { margin-top: 10px; display: flex; align-items: center; gap: 5px; }
+.theme-selector select { padding: 5px 10px; border: 1px solid #007aff; border-radius: 5px; background: #fff; cursor: pointer; }
 
-.help-buttons {
-  display: flex;
-  gap: 10px;
-}
+/* --- Main Game Board --- */
+.game-board { display: flex; flex-direction: column; align-items: center; }
 
-.scoreboard {
-  text-align: center;
-}
-
-.scoreboard p {
-  margin: 0;
-  font-size: 1rem;
-}
-
-/* Theme Selector */
-.theme-selector {
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.theme-selector select {
-  padding: 5px 10px;
-  border: 1px solid #007aff;
-  border-radius: 5px;
-  background: #fff;
-  cursor: pointer;
-}
-
-/* Main Game Board */
-.game-board {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
+/* --- THIS IS THE FIX --- */
 .hands {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline; /* This is the change: from center to baseline */
+  flex-wrap: wrap;
   gap: 20px;
   width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 
+.player-hands-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px; 
+  align-items: center;
+}
 .hand {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  transition: all 0.3s ease-in-out;
 }
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
+.cards { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
 .card {
   width: 50px;
   height: 70px;
@@ -175,19 +120,25 @@ html, body, #root {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Game Buttons */
-.game-buttons {
-  display: flex;
-  gap: 15px;
-  margin-top: 10px;
+/* --- Hand States & Animations --- */
+.hand.active-hand { border: 2px solid #007aff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px rgba(0, 122, 255, 0.5); }
+.hand.stood-hand { opacity: 0.7; border: 2px solid #ccc; border-radius: 10px; padding: 10px; }
+.hands.hands-split { align-items: center; /* This centers the dealer hand against the two player hands */}
+.card.splitting { animation-duration: 0.6s; animation-fill-mode: forwards; animation-timing-function: ease-in-out; }
+.card.split-to-top { animation-name: split-top; }
+.card.split-to-bottom { animation-name: split-bottom; }
+@keyframes split-top {
+  0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  100% { transform: translate(0, -50px) rotate(-5deg); opacity: 0; }
+}
+@keyframes split-bottom {
+  0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  100% { transform: translate(0, 50px) rotate(5deg); opacity: 0; }
 }
 
-/* Reusable Button Class */
-.game-buttons button,
-.help-buttons button,
-.modal-button,
-.deck-selection button,
-.round-buttons button {
+/* --- Buttons & Modals --- */
+.game-buttons { display: flex; gap: 15px; margin-top: 10px; }
+.game-buttons button, .help-buttons button, .modal-button, .deck-selection button, .round-buttons button {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -197,95 +148,21 @@ html, body, #root {
   cursor: pointer;
   transition: background 0.3s ease;
 }
+.game-buttons button:hover, .help-buttons button:hover, .modal-button:hover, .deck-selection button:hover, .round-buttons button:hover { background: #005bb5; }
+.help-buttons button { padding: 8px 16px; }
+.deck-selection { display: flex; gap: 10px; justify-content: center; margin: 20px 0; }
+.deck-selection button { border: 1px solid #007aff; background: #fff; color: #007aff; }
+.deck-selection button.selected { background: #007aff; color: #fff; }
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal { background: #fff; padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; text-align: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+.modal-button, .round-buttons button { margin-top: 20px; }
+.round-buttons { margin-top: 20px; display: flex; gap: 10px; justify-content: center; }
 
-.game-buttons button:hover,
-.help-buttons button:hover,
-.modal-button:hover,
-.deck-selection button:hover,
-.round-buttons button:hover {
-  background: #005bb5;
-}
+/* --- Action Log --- */
+.action-log { background: #f8f8f8; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.9rem; max-height: 150px; overflow-y: auto; }
 
-.help-buttons button {
-  padding: 8px 16px;
-}
-
-
-/* Action Log Styling */
-.action-log {
-  background: #f8f8f8;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  max-height: 150px;
-  overflow-y: auto;
-}
-
-/* Deck Selection Styling */
-.deck-selection {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.deck-selection button {
-  border: 1px solid #007aff;
-  background: #fff;
-  color: #007aff;
-}
-
-.deck-selection button.selected {
-  background: #007aff;
-  color: #fff;
-}
-
-/* Modal Styling */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal {
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 500px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.modal-button,
-.round-buttons button {
-  margin-top: 20px;
-}
-
-/* Round Result Modal Buttons */
-.round-buttons {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-/* Responsive Adjustments */
+/* --- Responsive Adjustments --- */
 @media (max-width: 600px) {
-  .header, .hands, .action-log {
-    flex-direction: column;
-    align-items: center;
-  }
-  .hands {
-    gap: 15px;
-  }
+  .header, .action-log { flex-direction: column; align-items: center; }
+  .hands { gap: 15px; flex-direction: column; }
 }
-
